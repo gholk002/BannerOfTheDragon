@@ -1,11 +1,8 @@
-
-float radius = 4;
 float left = 100;
 float top = 50;
 float restlen = 10; //rest length of spring
 float ks = -500; //spring constant
 float kd = -800; //dampening factor
-float mass = 1;
 Vec3 gravity = new Vec3(0,2,0);
 int cols = 40;
 int rows = 40;
@@ -18,7 +15,7 @@ Vec3 pos[][] = new Vec3[rows][cols];
 Vec3 vel[][] = new Vec3[rows][cols];
 
 void setup() {
-  size(1000, 548, P3D);
+  size(1000, 551, P3D);
   surface.setTitle("Banner of the Dragon");
   dragonbanner = loadImage("DragonBanner.jpg");
   sky = loadImage("sky.jpg");
@@ -54,7 +51,7 @@ void update(float dt){
       float v1 = dot(rope,vel[i][j]); //old velocities
       float v2 = dot(rope,vel[i+1][j]);
       Vec3 dampF = rope; //direction of force
-      dampF.times(kd*(v1 - v2)/mass); //magnitude of force
+      dampF.times(kd*(v1 - v2)); //magnitude of force
       nvel[i][j].add(springF.times(dt).plus(dampF.times(0.5*dt)));
       nvel[i+1][j].subtract(springF.times(dt).plus(dampF.times(0.5*dt)));
       
@@ -70,7 +67,7 @@ void update(float dt){
       float v1 = dot(rope,vel[i][j]); //old velocities
       float v2 = dot(rope,vel[i][j+1]);
       Vec3 dampF = rope; //direction of force
-      dampF.times(-kd*(v1 - v2)/mass); //magnitude of force
+      dampF.times(-kd*(v1 - v2)); //magnitude of force
       nvel[i][j].add(springF.times(dt).plus(dampF.times(dt)));
       nvel[i][j+1].subtract(springF.times(dt).plus(dampF.times(dt)));
       
